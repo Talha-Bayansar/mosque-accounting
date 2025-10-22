@@ -1,0 +1,105 @@
+---
+alwaysApply: true
+---
+
+1. Application Purpose
+   A Progressive Web App (PWA) designed for mosques to manage financial activities with transparency, accountability, and ease of use.
+   It enables:
+
+- Tracking current balance, income, and expenses.
+- Logging cash disbursements (manual handovers recorded digitally).
+- Allowing members to submit expense requests with descriptions and receipts.
+- Admins to approve/deny requests, attach receipts, and maintain an audit trail.
+
+2. Tech Stack
+
+- Framework: Next.js (App Router) with TypeScript.
+- Database: Neon (Postgres) with Drizzle ORM.
+- Data Fetching & State: TanStack Query.
+- Forms & Validation: TanStack Form + Zod.
+- UI Library: shadcn/ui (consistent, reusable components).
+- Authentication/Authorization: better-auth (with role/permission plugins).
+- PWA Support: Mobile-first design, offline caching, installable.
+
+3. Architecture & Code Organization
+
+- Feature-based folder structure (group by domain, not by type).
+- File naming: kebab-case for all files.
+- Small files principle: keep files minimal and focused.
+- Reusable components: maximize reuse for consistent UI and readability.
+- Separation of concerns:
+- UI components separated from business logic.
+- Client code separated from server code.
+- Repositories:
+- Database logic isolated in repository files.
+- Server actions consume repositories.
+- Server Actions First:
+- Prefer server actions for mutations/queries.
+- Avoid API routes unless strictly needed (e.g., webhooks).
+
+4. Typing & Validation
+
+- Types:
+- Use normal TypeScript types and infer for reusability.
+- Extract parameter types into named type instances (avoid inline object types).
+- Maintain a dedicated types folder or feature-level types.ts.
+- Validation:
+- All validation handled with Zod.
+- Used in forms, server actions, and mutation logic.
+- Ensures end-to-end type safety and consistent error handling.
+
+5. UI & Styling
+
+- Mobile-first design with responsive layouts.
+- shadcn/ui as the base for all UI components.
+- Consistent design system:
+- Shared components (buttons, inputs, modals, cards).
+- Theme tokens for spacing, colors, typography.
+- Accessibility: follow ARIA and semantic HTML best practices.
+
+6. Data & Workflow
+
+- Entities:
+- Members (with roles: admin, treasurer, member).
+- Transactions (income/expense).
+- Requests (pending/approved/denied).
+- Files (receipts, invoices).
+- Workflows:
+- Member submits request → Admin reviews → Approve/Deny → Balance updated.
+- Admin logs cash disbursement → Transaction recorded → Receipt attached.
+- Audit Trail: all actions logged for accountability.
+
+7. Authentication & Authorization
+
+- Library: better-auth for authentication and authorization.
+- Role & Permission Management:
+- Roles:
+- Admin → full access, approve/deny requests, manage balance, manage members.
+- Treasurer → financial oversight, reporting.
+- Member → submit requests, view personal history.
+- Permissions enforced via better-auth plugins.
+- Integration:
+- Auth handled at the server layer (Next.js server actions).
+- Authorization checks applied in server actions and UI.
+- Centralized permissions utility module for reusability.
+
+8. Configuration Management
+
+- Config Files First:
+- Use dedicated config files for complex or frequently changing logic.
+- Examples: role/permission mappings, validation rules, feature toggles, UI constants.
+- Single Source of Truth:
+- Configs act as central update points.
+- Prevent duplication and ensure consistency across client and server code.
+- Structure & Naming:
+- Store configs in a config/ folder at root or feature-level.
+- Use kebab-case filenames (e.g., roles-config.ts, validation-config.ts).
+- Strongly typed with TypeScript.
+
+9. Development Principles
+
+- Consistency over cleverness: prioritize readability and maintainability.
+- Reusable patterns: forms, modals, and validation follow the same structure.
+- Strict typing: prevent runtime errors with TypeScript + Zod.
+- Scalable structure: feature-based organization supports future growth.
+- Minimal duplication: extract shared logic into hooks, utils, or repositories.

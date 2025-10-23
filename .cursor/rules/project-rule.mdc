@@ -18,7 +18,7 @@ alwaysApply: true
 - Data Fetching & State: TanStack Query.
 - Forms & Validation: TanStack Form + Zod.
 - UI Library: shadcn/ui (consistent, reusable components).
-- Authentication/Authorization: better-auth (with role/permission plugins).
+- Authentication/Authorization: better-auth (with organization plugin).
 - PWA Support: Mobile-first design, offline caching, installable.
 
 3. Architecture & Code Organization

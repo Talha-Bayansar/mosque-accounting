@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calculator, Shield, Users } from "lucide-react";
+import Link from "next/link";
 
 export function HeroSection() {
   return (
@@ -19,9 +20,11 @@ export function HeroSection() {
           expenses, approve requests, and maintain complete audit trails.
         </p>
         <div className="flex flex-col gap-4 sm:flex-row">
-          <Button size="lg" className="text-lg px-8 py-6">
-            <Calculator className="mr-2 h-5 w-5" />
-            Enter App
+          <Button asChild size="lg" className="text-lg px-8 py-6">
+            <Link href="/sign-in">
+              <Calculator className="mr-2 h-5 w-5" />
+              Enter App
+            </Link>
           </Button>
           <Button variant="outline" size="lg" className="text-lg px-8 py-6">
             <Users className="mr-2 h-5 w-5" />
